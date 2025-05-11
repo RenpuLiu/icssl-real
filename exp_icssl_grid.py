@@ -6,18 +6,18 @@ from usb_icssl_eval import run_icssl_once
 
 
 MODELS = {
-    "Llama‑2‑13B": dict(
-        name="meta-llama/Llama-2-13b-chat-hf",
-        quant4=True,
+    "Llama‑3‑8B": dict(
+        name="meta-llama/Meta-Llama-3-8B-Instruct",
+        quant4=True,           # 4‑bit saves ~50 % VRAM; bf16 also OK on H100
         dtype="bfloat16",
     ),
-    "Qwen‑1.5‑7B": dict(
-        name="Qwen/Qwen1.5-7B",
-        quant4=False,
+
+    "Qwen‑2‑7B": dict(
+        name="Qwen/Qwen2-7B-Instruct",
+        quant4=False,          # fits bf16
         dtype="bfloat16",
     ),
 }
-
 
 UNLAB_COUNTS = [32, 64, 128, 256, 512]
 
