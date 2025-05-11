@@ -1,0 +1,24 @@
+name: icssl_llm
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+dependencies:
+  # Core
+  - python=3.10
+  - pytorch=2.3.0
+  - pytorch-cuda=12.1        # CUDA 12 build for H100
+  - torchvision
+  - torchaudio
+
+  # Hugging Face stack
+  - pip
+  - pip:
+      - transformers>=4.40
+      - accelerate>=0.28
+      - bitsandbytes           # 4‑/8‑bit quant   (optional but handy)
+      - datasets>=2.18
+      - evaluate               # accuracy / f1, etc.
+      - sentencepiece          # tokeniser for Llama / Mistral
+      - peft                   # if you later want LoRA
+      - rich                   # pretty CLI progress
