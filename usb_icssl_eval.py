@@ -93,6 +93,10 @@ def run_icssl_once(model_name:str,
             torch_dtype=getattr(torch, dtype),
             trust_remote_code=True)
 
+    model.generation_config.top_p        = 1.0   # equivalent to "off"
+    model.generation_config.top_k        = 0
+    model.generation_config.temperature  = 1.0
+
     tok = AutoTokenizer.from_pretrained(model_name,
                                         use_fast=True,
                                         trust_remote_code=True)
