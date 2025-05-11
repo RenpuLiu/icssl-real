@@ -12,7 +12,7 @@ MODELS = {
     #     dtype="bfloat16",
     # ),
 
-    "Qwen‑3‑bB": dict(
+    "Qwen‑3‑8B": dict(
         name="Qwen/Qwen3-8B",
         quant4=False,          # fits bf16
         dtype="bfloat16",
