@@ -18,14 +18,19 @@ TEMPLATE = """
 You are an expert text‑classifier. Possible classes are:
 {label_desc}
 
-Below are some labelled examples:
+The following examples are ALREADY labelled.
 
 {label_block}
 
-Now classify the UNLABELED examples, replying with **only** the class
-name on each line, in the same order.
+Now read ALL of the unlabelled texts below.
+     • First, **silently** compare them with the patterns you saw in the
+       labelled block **and unlabeled block** and decide the best category for each one.
+     • When you are certain, output ONLY the category names,
+       one per line, in the *same order* as the texts appear.
 
 {unlab_block}
+
+(Write nothing except the category name for each unlabelled text.)
 """.strip()
 
 USB = {
