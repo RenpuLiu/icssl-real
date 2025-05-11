@@ -4,14 +4,25 @@ import pandas as pd, matplotlib.pyplot as plt
 from rich import print
 from usb_icssl_eval import run_icssl_once
 
+
 MODELS = {
-    "Mistral‑7B" : dict(name="mistralai/Mistral-7B-v0.2",
-                        quant4=False, dtype="bfloat16"),
-    "Llama‑2‑13B": dict(name="meta-llama/Llama-2-13b-chat-hf",
-                        quant4=True,  dtype="bfloat16"),   # 4‑bit to fit comfortably
-    "Qwen‑1.5‑7B": dict(name="Qwen/Qwen1.5-7B",
-                        quant4=False, dtype="bfloat16"),
+    "Mistral‑7B": dict(
+        name="mistralai/Mistral-7B-v0.1",  
+        quant4=False,
+        dtype="bfloat16",
+    ),
+    "Llama‑2‑13B": dict(
+        name="meta-llama/Llama-2-13b-chat-hf",
+        quant4=True,
+        dtype="bfloat16",
+    ),
+    "Qwen‑1.5‑7B": dict(
+        name="Qwen/Qwen1.5-7B",
+        quant4=False,
+        dtype="bfloat16",
+    ),
 }
+
 
 UNLAB_COUNTS = [32, 64, 128, 256, 512]
 
