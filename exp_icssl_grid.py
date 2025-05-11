@@ -6,11 +6,11 @@ from usb_icssl_eval import run_icssl_once
 
 
 MODELS = {
-    "Llama‑3‑8B": dict(
-        name="meta-llama/Meta-Llama-3-8B-Instruct",
-        quant4=True,           # 4‑bit saves ~50 % VRAM; bf16 also OK on H100
-        dtype="bfloat16",
-    ),
+    # "Llama‑3‑8B": dict(
+    #     name="meta-llama/Meta-Llama-3-8B-Instruct",
+    #     quant4=True,           # 4‑bit saves ~50 % VRAM; bf16 also OK on H100
+    #     dtype="bfloat16",
+    # ),
 
     "Qwen‑3‑bB": dict(
         name="Qwen/Qwen3-8B",
