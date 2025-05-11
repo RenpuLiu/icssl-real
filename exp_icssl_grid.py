@@ -6,11 +6,6 @@ from usb_icssl_eval import run_icssl_once
 
 
 MODELS = {
-    "Mistral‑7B": dict(
-        name="mistralai/Mistral-7B-v0.1",  
-        quant4=False,
-        dtype="bfloat16",
-    ),
     "Llama‑2‑13B": dict(
         name="meta-llama/Llama-2-13b-chat-hf",
         quant4=True,
