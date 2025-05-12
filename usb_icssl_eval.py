@@ -17,24 +17,57 @@ UNLAB_LINE = "TEXT: {text}\nLABEL:"
 
 
 TEMPLATE = """
-… (unchanged intro) …
+You are an expert topic‑classifier. Think step‑by‑step **silently**.
+Never reveal chain‑of‑thought.
 
+Below are four possible categories:
+
+{label_desc}
+
+────────────────  LABELED DEMOS  ────────────────
+{label_block}
+
+────────────────  UNLABELED TEXTS  ──────────────
 {unlab_block}
 
----
-
-First **think** silently.  **Do NOT reveal your reasoning.**
-When you are certain, write:
-
+────────────────  OUTPUT INSTRUCTIONS  ─────────
+First, reason *privately*.
+Then print exactly:
 ANSWER:
-<category‑1>
-<category‑2>
-... (one label per line in the same order)
+<label‑1>
+<label‑2>
+…
+<label‑N>
 
-Do NOT output anything else.
+Where <label‑i> is one of: {label_list}.
+**Do not print anything else.**
+If you add explanations, extra blank lines, or markup
+(e.g. “<think>...</think>”), your answer will be graded zero.
 """.strip()
 
+#################################################################
+# TEMPLATE = """
+# You are an expert text‑classifier.  Possible classes are:
+# {label_desc}
 
+# The following examples are ALREADY labelled.
+
+# {unlab_block}
+
+# ---
+
+# First **think** silently.  **Do NOT reveal your reasoning.**
+# When you are certain, write:
+
+# ANSWER:
+# <category‑1>
+# <category‑2>
+# ... (one label per line in the same order)
+
+# Do NOT output anything else.
+# """.strip()
+
+#################################################################
 # TEMPLATE = """
 # You are an expert text‑classifier.  Possible classes are:
 # {label_desc}
@@ -60,31 +93,6 @@ Do NOT output anything else.
 # **
 # """.strip()
 
-
-# TEMPLATE = """
-# You are an expert text‑classifier.  Possible classes are:
-# {label_desc}
-
-# The following examples are ALREADY labelled.
-
-# {label_block}
-
-# Now read ALL of the unlabelled texts below.
-#  • First, think step‑by‑step, compare them with the patterns you saw 
-#  in the labelled and unlabeled blocks, and decide the best category for each one. For each one, your thinking token should not exceed 100.
-#  Remember that information in the unlabeled block can be utilized to improve your prediction.
-#  • Write your reasoning INSIDE a <think> ... </think> block.
-#  • AFTER the </think> tag, output ONLY the category names,
-#    one per line, in the *same order* as the texts appear.
-
-# {unlab_block}
-
-# **<think>
-# ... your analysis ...
-# </think>
-# <your labels here>
-# **
-# """.strip()
 
 
 
