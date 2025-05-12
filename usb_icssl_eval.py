@@ -17,29 +17,74 @@ UNLAB_LINE = "TEXT: {text}\nLABEL:"
 
 
 TEMPLATE = """
-You are an expert text‑classifier.  Possible classes are:
-{label_desc}
-
-The following examples are ALREADY labelled.
-
-{label_block}
-
-Now read ALL of the unlabelled texts below.
- • First, think step‑by‑step, compare them with the patterns you saw 
- in the labelled and unlabeled blocks, and decide the best category for each one. For each one, your thinking token should not exceed 100.
- Remember that information in the unlabeled block can be utilized to improve your prediction.
- • Write your reasoning INSIDE a <think> ... </think> block.
- • AFTER the </think> tag, output ONLY the category names,
-   one per line, in the *same order* as the texts appear.
+… (unchanged intro) …
 
 {unlab_block}
 
-**<think>
-... your analysis ...
-</think>
-<your labels here>
-**
+---
+
+First **think** silently.  **Do NOT reveal your reasoning.**
+When you are certain, write:
+
+ANSWER:
+<category‑1>
+<category‑2>
+... (one label per line in the same order)
+
+Do NOT output anything else.
 """.strip()
+
+
+# TEMPLATE = """
+# You are an expert text‑classifier.  Possible classes are:
+# {label_desc}
+
+# The following examples are ALREADY labelled.
+
+# {label_block}
+
+# Now read ALL of the unlabelled texts below.
+#  • First, think step‑by‑step, compare them with the patterns you saw 
+#  in the labelled and unlabeled blocks, and decide the best category for each one. For each one, your thinking token should not exceed 100.
+#  Remember that information in the unlabeled block can be utilized to improve your prediction.
+#  • Write your reasoning INSIDE a <think> ... </think> block.
+#  • AFTER the </think> tag, output ONLY the category names,
+#    one per line, in the *same order* as the texts appear.
+
+# {unlab_block}
+
+# **<think>
+# ... your analysis ...
+# </think>
+# <your labels here>
+# **
+# """.strip()
+
+
+# TEMPLATE = """
+# You are an expert text‑classifier.  Possible classes are:
+# {label_desc}
+
+# The following examples are ALREADY labelled.
+
+# {label_block}
+
+# Now read ALL of the unlabelled texts below.
+#  • First, think step‑by‑step, compare them with the patterns you saw 
+#  in the labelled and unlabeled blocks, and decide the best category for each one. For each one, your thinking token should not exceed 100.
+#  Remember that information in the unlabeled block can be utilized to improve your prediction.
+#  • Write your reasoning INSIDE a <think> ... </think> block.
+#  • AFTER the </think> tag, output ONLY the category names,
+#    one per line, in the *same order* as the texts appear.
+
+# {unlab_block}
+
+# **<think>
+# ... your analysis ...
+# </think>
+# <your labels here>
+# **
+# """.strip()
 
 
 
@@ -142,15 +187,17 @@ def run_icssl_once(model_name: str,
         pad_token_id=tok.eos_token_id,
     )
 
-
-    raw_out = tok.decode(gen_ids[0][inputs["input_ids"].shape[-1]:],
-                     skip_special_tokens=True).strip()
-
-    after_think = raw_out.split("</think>")[-1]   # falls back to full text if no tag
-    preds = [ln.strip() for ln in after_think.splitlines() if ln.strip()][:u]
+    #############################################
     # raw_out = tok.decode(gen_ids[0][inputs["input_ids"].shape[-1]:],
-    #                      skip_special_tokens=True).strip()
-    # preds = [ln.strip() for ln in raw_out.splitlines() if ln.strip()][:u]
+    #                  skip_special_tokens=True).strip()
+
+    # after_think = raw_out.split("</think>")[-1]   # falls back to full text if no tag
+    # preds = [ln.strip() for ln in after_think.splitlines() if ln.strip()][:u]
+    #############################################
+                     
+    raw_out = tok.decode(gen_ids[0][inputs["input_ids"].shape[-1]:],
+                         skip_special_tokens=True).strip()
+    preds = [ln.strip() for ln in raw_out.splitlines() if ln.strip()][:u]
 
     lab2id = {l: i for i, l in enumerate(meta["labels"])}
     gold   = [ex["label"] for ex in unlab]
