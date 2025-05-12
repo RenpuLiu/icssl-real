@@ -43,7 +43,7 @@ The following examples are ALREADY labelled.
 
 Now read ALL of the unlabelled texts below.
  • First, think step‑by‑step, compare them with the patterns you saw 
- in the labelled and **unlabeled** block and decide the best category for each one.
+ in the labelled and **unlabeled** block, and decide the best category for each one. Remember that information in the unlabeled block can be utilized to improve your prediction.
  • Write your reasoning INSIDE a <think> ... </think> block.
  • AFTER the </think> tag, output ONLY the category names,
    one per line, in the *same order* as the texts appear.
@@ -150,7 +150,7 @@ def run_icssl_once(model_name: str,
 
     gen_ids = model.generate(
         **inputs,
-        max_new_tokens=u + 5,        # ≈ one token per label
+        max_new_tokens= 4*u + 20,        # ≈ one token per label
         do_sample=True,
         temperature=0.7,
         top_p=0.95,
