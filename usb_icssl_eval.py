@@ -52,19 +52,24 @@ You are an expert text‑classifier.  Possible classes are:
 
 The following examples are ALREADY labelled.
 
+{label_block}
+
+Now read ALL of the unlabelled texts below.
+
 {unlab_block}
 
----
-
-First **think** silently.  **Do NOT reveal your reasoning.**
-When you are certain, write:
-
+First, reason *privately*.
+Then print exactly:
 ANSWER:
-<category‑1>
-<category‑2>
-... (one label per line in the same order)
+<label‑1>
+<label‑2>
+…
+<label‑N>
 
-Do NOT output anything else.
+Where <label‑i> is one of: {label_list}.
+**Do not print anything else.**
+If you add explanations, extra blank lines, or markup
+(e.g. “<think>...</think>”), your answer will be graded zero.
 """.strip()
 
 #################################################################
