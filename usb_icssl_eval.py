@@ -16,56 +16,56 @@ LABEL_LINE = "TEXT: {text}\nLABEL: {label}\n"
 UNLAB_LINE = "TEXT: {text}\nLABEL:"
 
 
-TEMPLATE = """
-You are an expert topic‑classifier. Think step‑by‑step **silently**.
-Never reveal chain‑of‑thought.
-
-Below are four possible categories:
-
-{label_desc}
-
-────────────────  LABELED DEMOS  ────────────────
-{label_block}
-
-────────────────  UNLABELED TEXTS  ──────────────
-{unlab_block}
-
-────────────────  OUTPUT INSTRUCTIONS  ─────────
-First, reason *privately*.
-Then print exactly:
-ANSWER:
-<label‑1>
-<label‑2>
-…
-<label‑N>
-
-Where <label‑i> is one of: {label_list}.
-**Do not print anything else.**
-If you add explanations, extra blank lines, or markup
-(e.g. “<think>...</think>”), your answer will be graded zero.
-""".strip()
-
-#################################################################
 # TEMPLATE = """
-# You are an expert text‑classifier.  Possible classes are:
+# You are an expert topic‑classifier. Think step‑by‑step **silently**.
+# Never reveal chain‑of‑thought.
+
+# Below are four possible categories:
+
 # {label_desc}
 
-# The following examples are ALREADY labelled.
+# ────────────────  LABELED DEMOS  ────────────────
+# {label_block}
 
+# ────────────────  UNLABELED TEXTS  ──────────────
 # {unlab_block}
 
-# ---
-
-# First **think** silently.  **Do NOT reveal your reasoning.**
-# When you are certain, write:
-
+# ────────────────  OUTPUT INSTRUCTIONS  ─────────
+# First, reason *privately*.
+# Then print exactly:
 # ANSWER:
-# <category‑1>
-# <category‑2>
-# ... (one label per line in the same order)
+# <label‑1>
+# <label‑2>
+# …
+# <label‑N>
 
-# Do NOT output anything else.
+# Where <label‑i> is one of: {label_list}.
+# **Do not print anything else.**
+# If you add explanations, extra blank lines, or markup
+# (e.g. “<think>...</think>”), your answer will be graded zero.
 # """.strip()
+
+#################################################################
+TEMPLATE = """
+You are an expert text‑classifier.  Possible classes are:
+{label_desc}
+
+The following examples are ALREADY labelled.
+
+{unlab_block}
+
+---
+
+First **think** silently.  **Do NOT reveal your reasoning.**
+When you are certain, write:
+
+ANSWER:
+<category‑1>
+<category‑2>
+... (one label per line in the same order)
+
+Do NOT output anything else.
+""".strip()
 
 #################################################################
 # TEMPLATE = """
