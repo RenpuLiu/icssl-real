@@ -16,33 +16,6 @@ LABEL_LINE = "TEXT: {text}\nLABEL: {label}\n"
 UNLAB_LINE = "TEXT: {text}\nLABEL:"
 
 
-TEMPLATE = """
-You are an expert text‑classifier.  Possible classes are:
-{label_desc}
-
-The following examples are ALREADY labelled.
-
-{label_block}
-
-Now read ALL of the unlabelled texts below.
-
-{unlab_block}
-
-First, reason *privately*.
-Then print exactly:
-ANSWER:
-<label‑1>
-<label‑2>
-…
-<label‑N>
-
-Where <label‑i> is one of: {label_list}.
-**Do not print anything else.**
-If you add explanations, extra blank lines, or markup
-(e.g. “<think>...</think>”), your answer will be graded zero.
-""".strip()
-
-#################################################################
 # TEMPLATE = """
 # You are an expert text‑classifier.  Possible classes are:
 # {label_desc}
@@ -52,21 +25,48 @@ If you add explanations, extra blank lines, or markup
 # {label_block}
 
 # Now read ALL of the unlabelled texts below.
-#  • First, think step‑by‑step, compare them with the patterns you saw 
-#  in the labelled and unlabeled blocks, and decide the best category for each one. For each one, your thinking token should not exceed 100.
-#  Remember that information in the unlabeled block can be utilized to improve your prediction.
-#  • Write your reasoning INSIDE a <think> ... </think> block.
-#  • AFTER the </think> tag, output ONLY the category names,
-#    one per line, in the *same order* as the texts appear.
 
 # {unlab_block}
 
-# **<think>
-# ... your analysis ...
-# </think>
-# <your labels here>
-# **
+# First, reason *privately*.
+# Then print exactly:
+# ANSWER:
+# <label‑1>
+# <label‑2>
+# …
+# <label‑N>
+
+# Where <label‑i> is one of: {label_list}.
+# **Do not print anything else.**
+# If you add explanations, extra blank lines, or markup
+# (e.g. “<think>...</think>”), your answer will be graded zero.
 # """.strip()
+
+#################################################################
+TEMPLATE = """
+You are an expert text‑classifier.  Possible classes are:
+{label_desc}
+
+The following examples are ALREADY labelled.
+
+{label_block}
+
+Now read ALL of the unlabelled texts below.
+ • First, think step‑by‑step, compare them with the patterns you saw 
+ in both the labelled and unlabeled blocks, and decide the best category for each one. 
+ Remember that information in the unlabeled block can be utilized to improve your prediction.
+ • Write your reasoning INSIDE a <think> ... </think> block.
+ • AFTER the </think> tag, output ONLY the category names,
+   one per line, in the *same order* as the texts appear.
+
+{unlab_block}
+
+**<think>
+... your analysis ...
+</think>
+<your labels here>
+**
+""".strip()
 
 
 
@@ -163,7 +163,7 @@ def run_icssl_once(model_name: str,
 
     gen_ids = model.generate(
         **inputs,
-        max_new_tokens= 100*u ,        # ≈ one token per label
+        max_new_tokens= 100*u+100,        # ≈ one token per label
         do_sample=True,
         temperature=0.7,
         top_p=0.95,
@@ -172,16 +172,16 @@ def run_icssl_once(model_name: str,
     )
 
     #############################################
-    # raw_out = tok.decode(gen_ids[0][inputs["input_ids"].shape[-1]:],
-    #                  skip_special_tokens=True).strip()
+    raw_out = tok.decode(gen_ids[0][inputs["input_ids"].shape[-1]:],
+                     skip_special_tokens=True).strip()
 
-    # after_think = raw_out.split("</think>")[-1]   # falls back to full text if no tag
-    # preds = [ln.strip() for ln in after_think.splitlines() if ln.strip()][:u]
+    after_think = raw_out.split("</think>")[-1]   # falls back to full text if no tag
+    preds = [ln.strip() for ln in after_think.splitlines() if ln.strip()][:u]
     #############################################
                      
-    raw_out = tok.decode(gen_ids[0][inputs["input_ids"].shape[-1]:],
-                         skip_special_tokens=True).strip()
-    preds = [ln.strip() for ln in raw_out.splitlines() if ln.strip()][:u]
+    # raw_out = tok.decode(gen_ids[0][inputs["input_ids"].shape[-1]:],
+    #                      skip_special_tokens=True).strip()
+    # preds = [ln.strip() for ln in raw_out.splitlines() if ln.strip()][:u]
 
     lab2id = {l: i for i, l in enumerate(meta["labels"])}
     gold   = [ex["label"] for ex in unlab]
