@@ -14,24 +14,7 @@ from transformers import (AutoModelForCausalLM, AutoTokenizer,
 
 LABEL_LINE = "TEXT: {text}\nLABEL: {label}\n"
 UNLAB_LINE = "TEXT: {text}\nLABEL:"
-TEMPLATE = """
-You are an expert text‑classifier.  Possible classes are:
-{label_desc}
 
-The following examples are ALREADY labelled.
-
-{label_block}
-
-Now read ALL of the unlabelled texts below.
- • First, **silently** compare them with the patterns you saw in the
-   labelled block and decide the best category for each one.
- • When you are certain, output ONLY the category names,
-   one per line, in the *same order* as the texts appear.
-
-{unlab_block}
-
-(Write nothing except the category name for each unlabelled text.)
-""".strip()
 
 TEMPLATE = """
 You are an expert text‑classifier.  Possible classes are:
@@ -43,7 +26,8 @@ The following examples are ALREADY labelled.
 
 Now read ALL of the unlabelled texts below.
  • First, think step‑by‑step, compare them with the patterns you saw 
- in the labelled and **unlabeled** block, and decide the best category for each one. Remember that information in the unlabeled block can be utilized to improve your prediction.
+ in the labelled and **unlabeled** block, and decide the best category for each one. For each one, your thinking token should not exceed 100.
+ Remember that information in the unlabeled block can be utilized to improve your prediction.
  • Write your reasoning INSIDE a <think> ... </think> block.
  • AFTER the </think> tag, output ONLY the category names,
    one per line, in the *same order* as the texts appear.
@@ -150,7 +134,7 @@ def run_icssl_once(model_name: str,
 
     gen_ids = model.generate(
         **inputs,
-        max_new_tokens= 4*u + 20,        # ≈ one token per label
+        max_new_tokens= 4*u + 300,        # ≈ one token per label
         do_sample=True,
         temperature=0.7,
         top_p=0.95,
