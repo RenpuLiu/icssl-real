@@ -23,7 +23,7 @@ UNLAB_COUNTS = [1, 2, 4, 6, 8, 10]
 # ---------------------------------------------------------------
 
 
-def main(runs: int = 5, task: str = "ag_news", k: int = 4):
+def main(runs: int = 50, task: str = "ag_news", k: int = 4):
     rows = []
     t0 = time.time()
 
