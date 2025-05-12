@@ -103,9 +103,12 @@ def run_icssl_once(model_name:str,
     inputs = tok(prompt, return_tensors="pt").to(model.device)
     gen_ids = model.generate(
         **inputs,
-        max_new_tokens=2*u + 5,
-        do_sample=False,
-        pad_token_id=tok.eos_token_id,
+        max_new_tokens = 2*u + 5,   # long enough for one label / line
+        do_sample      = True,      # ← enable stochastic decoding
+        temperature    = 0.7,       # ← tune as you like
+        top_p          = 0.95,
+        top_k          = 40,
+        pad_token_id   = tok.eos_token_id,
     )
     out = tok.decode(gen_ids[0][inputs["input_ids"].shape[-1]:],
                      skip_special_tokens=True).strip()
