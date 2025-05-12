@@ -28,7 +28,8 @@ for lbl, cfg in MODELS.items():
                              task="ag_news",
                              k=4, u=u,
                              dtype=cfg["dtype"],
-                             quant4=cfg["quant4"])
+                             quant4=cfg["quant4"],
+                             verbose=True) 
         rows.append(dict(model=lbl, unlab=u, acc=acc))
         print(f"[bold cyan]{lbl}[/]  U={u:<3}  →  acc={acc:.4f}")
 
