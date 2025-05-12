@@ -26,7 +26,7 @@ The following examples are ALREADY labelled.
 
 Now read ALL of the unlabelled texts below.
  • First, think step‑by‑step, compare them with the patterns you saw 
- in the labelled and **unlabeled** block, and decide the best category for each one. For each one, your thinking token should not exceed 100.
+ in the labelled and unlabeled blocks, and decide the best category for each one. For each one, your thinking token should not exceed 100.
  Remember that information in the unlabeled block can be utilized to improve your prediction.
  • Write your reasoning INSIDE a <think> ... </think> block.
  • AFTER the </think> tag, output ONLY the category names,
