@@ -118,7 +118,7 @@ def run_icssl_once(model_name: str,
     tok.padding_side = "left"
 
     # ---------- encode prompt (Chat vs raw) ---------------------
-    inputs = encode_prompt(tok, prompt).to(model.device)
+    inputs = {k: v.to(model.device) for k, v in encode_prompt(tok, prompt).items()}
 
     # reduce VRAM on long contexts
     model.config.use_cache = False
