@@ -163,7 +163,7 @@ def run_icssl_once(model_name: str,
 
     gen_ids = model.generate(
         **inputs,
-        max_new_tokens= 100*u+100,        # ≈ one token per label
+        max_new_tokens= 100*u+500,        # ≈ one token per label
         do_sample=True,
         temperature=0.7,
         top_p=0.95,
