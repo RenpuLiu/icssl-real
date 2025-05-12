@@ -118,7 +118,7 @@ def run_icssl_once(model_name: str,
     tok.padding_side = "left"
 
     # ---------- encode prompt (Chat vs raw) ---------------------
-    inputs = {k: v.to(model.device) for k, v in encode_prompt(tok, prompt).items()}
+    inputs = encode_prompt(tok, prompt, model.device)
 
     # reduce VRAM on long contexts
     model.config.use_cache = False
@@ -155,3 +155,34 @@ def run_icssl_once(model_name: str,
 
     torch.cuda.empty_cache()
     return acc
+
+def encode_prompt(tokenizer, plain_prompt, device):
+    """
+    Return a dict that has at least 'input_ids' (and attention_mask) so
+    we can pass it to model.generate(**inputs, …) without errors.
+    """
+    # Case A ▸ the tokenizer has a chat template (Qwen‑3, Qwen‑2, Llama‑3…)
+    if hasattr(tokenizer, "apply_chat_template"):
+        messages = [
+            {"role": "system",
+             "content": "You are a helpful, expert text‑classifier."},
+            {"role": "user", "content": plain_prompt},
+        ]
+        tpl_out = tokenizer.apply_chat_template(
+            messages,
+            add_generation_prompt=True,
+            return_tensors="pt",
+        )
+        # Some tokenizers return a tensor, others a dict → normalise
+        if isinstance(tpl_out, torch.Tensor):
+            input_ids = tpl_out.to(device)
+            return {
+                "input_ids": input_ids,
+                "attention_mask": torch.ones_like(input_ids),
+            }
+        else:
+            return {k: v.to(device) for k, v in tpl_out.items()}
+
+    # Case B ▸ plain models (Mistral, TinyLlama, etc.)
+    plain_out = tokenizer(plain_prompt, return_tensors="pt")
+    return {k: v.to(device) for k, v in plain_out.items()}
