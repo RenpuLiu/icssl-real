@@ -41,9 +41,9 @@ def main(runs: int = 50, task: str = "ag_news", k: int = 4):
                     k=k,
                     u=u,
                     dtype=cfg["dtype"],
-                    quant4=cfg["quant4"],
+                    quant4=False,
                     seed=seed,
-                    verbose=False,      # flip to True for debugging
+                    verbose=True,      # flip to True for debugging
                 )
                 rows.append(
                     dict(run=r, model=label, unlab=u, acc=acc, seed=seed)
