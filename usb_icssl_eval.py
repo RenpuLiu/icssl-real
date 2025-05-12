@@ -16,36 +16,6 @@ LABEL_LINE = "TEXT: {text}\nLABEL: {label}\n"
 UNLAB_LINE = "TEXT: {text}\nLABEL:"
 
 
-# TEMPLATE = """
-# You are an expert topic‑classifier. Think step‑by‑step **silently**.
-# Never reveal chain‑of‑thought.
-
-# Below are four possible categories:
-
-# {label_desc}
-
-# ────────────────  LABELED DEMOS  ────────────────
-# {label_block}
-
-# ────────────────  UNLABELED TEXTS  ──────────────
-# {unlab_block}
-
-# ────────────────  OUTPUT INSTRUCTIONS  ─────────
-# First, reason *privately*.
-# Then print exactly:
-# ANSWER:
-# <label‑1>
-# <label‑2>
-# …
-# <label‑N>
-
-# Where <label‑i> is one of: {label_list}.
-# **Do not print anything else.**
-# If you add explanations, extra blank lines, or markup
-# (e.g. “<think>...</think>”), your answer will be graded zero.
-# """.strip()
-
-#################################################################
 TEMPLATE = """
 You are an expert text‑classifier.  Possible classes are:
 {label_desc}
@@ -112,6 +82,7 @@ USB = {
 
 def build_prompt(l_demo, u_demo, labels):
     label_desc  = "\n".join(f"- {x}" for x in labels)
+    label_list  = ", ".join(labels)
     label_block = "\n".join(
         LABEL_LINE.format(text=e["text"], label=labels[e["label"]])
         for e in l_demo)
@@ -120,18 +91,18 @@ def build_prompt(l_demo, u_demo, labels):
     return TEMPLATE.format(**locals())
 
 # ─────────────────────────  chat wrapper  ──────────────────────
-def encode_prompt(tokenizer, plain_prompt):
-    """Wrap plain prompt in chat template if the tokenizer supports it."""
-    if hasattr(tokenizer, "apply_chat_template"):
-        messages = [
-            {"role": "system",
-             "content": "You are a helpful, expert text‑classifier."},
-            {"role": "user", "content": plain_prompt},
-        ]
-        return tokenizer.apply_chat_template(
-            messages, add_generation_prompt=True,
-            return_tensors="pt")
-    return tokenizer(plain_prompt, return_tensors="pt")
+# def encode_prompt(tokenizer, plain_prompt):
+#     """Wrap plain prompt in chat template if the tokenizer supports it."""
+#     if hasattr(tokenizer, "apply_chat_template"):
+#         messages = [
+#             {"role": "system",
+#              "content": "You are a helpful, expert text‑classifier."},
+#             {"role": "user", "content": plain_prompt},
+#         ]
+#         return tokenizer.apply_chat_template(
+#             messages, add_generation_prompt=True,
+#             return_tensors="pt")
+#     return tokenizer(plain_prompt, return_tensors="pt")
 # ───────────────────────────────────────────────────────────────
 
 def run_icssl_once(model_name: str,
