@@ -19,7 +19,8 @@ MODELS = {
     ),
 }
 
-UNLAB_COUNTS = [32, 64, 128, 256, 512]
+# UNLAB_COUNTS = [32, 64, 128, 256, 512]
+UNLAB_COUNTS = [4, 16, 64, 256]
 
 rows = []
 for lbl, cfg in MODELS.items():
