@@ -11,7 +11,7 @@ from datasets import load_dataset
 from transformers import (AutoModelForCausalLM, AutoTokenizer,
                           BitsAndBytesConfig)
 
-# ╭──────────────────────── Prompt pieces ───────────────────────╮
+
 LABEL_LINE = "TEXT: {text}\nLABEL: {label}\n"
 UNLAB_LINE = "TEXT: {text}\nLABEL:"
 TEMPLATE = """
@@ -32,7 +32,32 @@ Now read ALL of the unlabelled texts below.
 
 (Write nothing except the category name for each unlabelled text.)
 """.strip()
-# ╰──────────────────────────────────────────────────────────────╯
+
+TEMPLATE = """
+You are an expert text‑classifier.  Possible classes are:
+{label_desc}
+
+The following examples are ALREADY labelled.
+
+{label_block}
+
+Now read ALL of the unlabelled texts below.
+ • First, think step‑by‑step, compare them with the patterns you saw 
+ in the labelled and **unlabeled** block and decide the best category for each one.
+ • Write your reasoning INSIDE a <think> ... </think> block.
+ • AFTER the </think> tag, output ONLY the category names,
+   one per line, in the *same order* as the texts appear.
+
+{unlab_block}
+
+**<think>
+... your analysis ...
+</think>
+<your labels here>
+**
+""".strip()
+
+
 
 USB = {
     "ag_news": dict(
@@ -132,9 +157,16 @@ def run_icssl_once(model_name: str,
         top_k=40,
         pad_token_id=tok.eos_token_id,
     )
+
+
     raw_out = tok.decode(gen_ids[0][inputs["input_ids"].shape[-1]:],
-                         skip_special_tokens=True).strip()
-    preds = [ln.strip() for ln in raw_out.splitlines() if ln.strip()][:u]
+                     skip_special_tokens=True).strip()
+
+    after_think = raw_out.split("</think>")[-1]   # falls back to full text if no tag
+    preds = [ln.strip() for ln in after_think.splitlines() if ln.strip()][:u]
+    # raw_out = tok.decode(gen_ids[0][inputs["input_ids"].shape[-1]:],
+    #                      skip_special_tokens=True).strip()
+    # preds = [ln.strip() for ln in raw_out.splitlines() if ln.strip()][:u]
 
     lab2id = {l: i for i, l in enumerate(meta["labels"])}
     gold   = [ex["label"] for ex in unlab]
