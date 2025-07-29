@@ -79,7 +79,7 @@ def main(runs: int = 50, task: str = "ag_news", k: int = 4):
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
-    ap.add_argument("--runs", type=int, default=5, help="# independent repeats")
+    ap.add_argument("--runs", type=int, default=1, help="# independent repeats")
     ap.add_argument("--task", default="ag_news")
     ap.add_argument("--k", type=int, default=4, help="# labelled demos/class")
     args = ap.parse_args()
