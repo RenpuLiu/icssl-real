@@ -44,7 +44,7 @@ UNLAB_LINE = "TEXT: {text}\nLABEL:"
 
 #################################################################
 TEMPLATE = """
-You are an expert text classifier.  Possible classes are:
+You are an expert text classifier, possible classes are:
 {label_desc}
 
 The following examples are ALREADY labelled.
