@@ -84,16 +84,14 @@ Now read ALL of the UNLABELLED texts:
 
 {unlab_block}
 
-• Step 1 <cluster> — Group the unlabelled texts into provisional clusters **purely by their mutual similarity**.  
+• Step 1  Group the unlabelled texts into provisional clusters **purely by their mutual similarity**.  
   – Give each cluster an ID (e.g. C1, C2, …).  
   – List the indices of the texts that belong to each cluster.  
   – Briefly state the common pattern or cue that ties the items in the cluster together.
 
-• Step 2 <label‑match> — For **each cluster**, decide the most plausible class by comparing the cluster’s pattern to the labelled examples **and** to the other clusters. Explain why the chosen class best fits.
+• Step 2  For **each cluster**, decide the most plausible class by comparing the cluster’s pattern to the labelled examples **and** to the other clusters. Explain why the chosen class best fits.
 
 • AFTER the </think> tag, output ONLY the category names, one per line, in the *same order* as the texts appear.
-
-• Wrap all reasoning in a single block exactly like this:
 
 <think>
 … your clustering analysis …
