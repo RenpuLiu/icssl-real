@@ -142,11 +142,11 @@ def run_icssl_once(model_name: str,
                                   bnb_4bit_quant_type="nf4",
                                   bnb_4bit_use_double_quant=True)
         model = AutoModelForCausalLM.from_pretrained(
-            model_name, device_map="cuda:2",
+            model_name, device_map="cuda:0",
             quantization_config=qcfg, trust_remote_code=True)
     else:
         model = AutoModelForCausalLM.from_pretrained(
-            model_name, device_map="cuda:2",
+            model_name, device_map="cuda:0",
             torch_dtype=getattr(torch, dtype),
             trust_remote_code=True)
 
