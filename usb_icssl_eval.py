@@ -91,20 +91,16 @@ Now read ALL of the UNLABELLED texts:
 
 • Step 2 <label‑match> — For **each cluster**, decide the most plausible class by comparing the cluster’s pattern to the labelled examples **and** to the other clusters. Explain why the chosen class best fits.
 
+• AFTER the </think> tag, output ONLY the category names, one per line, in the *same order* as the texts appear.
+
 • Wrap all reasoning in a single block exactly like this:
 
 <think>
-<cluster>
 … your clustering analysis …
-</cluster>
 
-<label‑match>
 … your class‑assignment analysis …
-</label‑match>
 </think>
-
-• AFTER the </think> tag, output **only** the final class for each unlabelled text, one per line, **in the same order** the texts appear above.  
-  (Do not output cluster IDs, indices, or extra text.)
+<your labels here>
 """.strip()
 
 
