@@ -43,28 +43,68 @@ UNLAB_LINE = "TEXT: {text}\nLABEL:"
 # """.strip()
 
 #################################################################
+
+
+
+
+
+# TEMPLATE = """
+# You are an expert text classifier, possible classes are:
+# {label_desc}
+
+# The following examples are ALREADY labelled.
+
+# {label_block}
+
+# Now read ALL of the unlabelled texts below.
+
+# {unlab_block}
+#  • First, think step‑by‑step, comparing inside the unlabelled samples, and think which ones are more likely to belong to the same category based on their direct similarity.
+#  • Next, compare them with the patterns you saw in both the labelled and unlabeled blocks, and decide the best category for each one. 
+#  • Write your reasoning INSIDE a <think> ... </think> block.
+#  • AFTER the </think> tag, output ONLY the category names,
+#    one per line, in the *same order* as the texts appear.
+
+# **<think>
+# ... your analysis ...
+# </think>
+# <your labels here>
+# **
+# """.strip()
+
 TEMPLATE = """
-You are an expert text classifier, possible classes are:
+You are an expert text‑classifier.  Possible classes are:
 {label_desc}
 
-The following examples are ALREADY labelled.
+The following examples are ALREADY labelled:
 
 {label_block}
 
-Now read ALL of the unlabelled texts below.
+Now read ALL of the UNLABELLED texts:
 
 {unlab_block}
- • First, think step‑by‑step, comparing inside the unlabelled samples, and think which ones are more likely to belong to the same category based on their direct similarity.
- • Next, compare them with the patterns you saw in both the labelled and unlabeled blocks, and decide the best category for each one. 
- • Write your reasoning INSIDE a <think> ... </think> block.
- • AFTER the </think> tag, output ONLY the category names,
-   one per line, in the *same order* as the texts appear.
 
-**<think>
-... your analysis ...
+• Step 1 <cluster> — Group the unlabelled texts into provisional clusters **purely by their mutual similarity**.  
+  – Give each cluster an ID (e.g. C1, C2, …).  
+  – List the indices of the texts that belong to each cluster.  
+  – Briefly state the common pattern or cue that ties the items in the cluster together.
+
+• Step 2 <label‑match> — For **each cluster**, decide the most plausible class by comparing the cluster’s pattern to the labelled examples **and** to the other clusters. Explain why the chosen class best fits.
+
+• Wrap all reasoning in a single block exactly like this:
+
+<think>
+<cluster>
+… your clustering analysis …
+</cluster>
+
+<label‑match>
+… your class‑assignment analysis …
+</label‑match>
 </think>
-<your labels here>
-**
+
+• AFTER the </think> tag, output **only** the final class for each unlabelled text, one per line, **in the same order** the texts appear above.  
+  (Do not output cluster IDs, indices, or extra text.)
 """.strip()
 
 
