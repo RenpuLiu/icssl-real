@@ -6,6 +6,7 @@ report mean + variance of accuracies for each unlabelled‑block size U.
 """
 
 import numpy as np, pandas as pd, argparse, random, time
+import random
 from rich import print
 from usb_icssl_eval import run_icssl_once
 
@@ -28,7 +29,7 @@ def main(runs: int = 50, task: str = "ag_news", k: int = 4):
     t0 = time.time()
 
     for r in range(runs):
-        seed = 42 + r        # different seed each repeat
+        seed = 42 + random.randint(1, 20)       # different seed each repeat
         random.seed(seed)
         np.random.seed(seed)
 
