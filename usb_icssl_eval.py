@@ -66,9 +66,7 @@ Now read ALL of the unlabelled texts below.
    one per line, in the *same order* as the texts appear.
 
 **<think>
-… your clustering analysis …
-
-… your class‑assignment analysis …
+… your analysis …
 </think>
 <your labels here>
 **
