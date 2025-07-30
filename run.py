@@ -20,7 +20,7 @@ MODELS = {
     # add other models if you like
 }
 
-UNLAB_COUNTS = [1, 4, 8]
+UNLAB_COUNTS = [ 8]
 # ---------------------------------------------------------------
 
 
