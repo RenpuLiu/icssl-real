@@ -60,8 +60,7 @@ Now read ALL of the unlabeled texts below.
 
 {unlab_block}
  • First, think step‑by‑step, compare them with the patterns you saw in the label_block and unlab_block, and decide the best category for each one. 
- • ATTENTION: You need to explicitly write how you utilize unlabeled samples in unlab_block.
- • Write your reasoning INSIDE a <think> ... </think> block.
+ • Write your reasoning， including how you utilize unlabeled samples, INSIDE a <think> ... </think> block.
  • AFTER the </think> tag, output ONLY the category names,
    one per line, in the *same order* as the texts appear.
 
