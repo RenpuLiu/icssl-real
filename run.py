@@ -29,7 +29,7 @@ def main(runs: int = 50, task: str = "ag_news", k: int = 4):
     t0 = time.time()
 
     for r in range(runs):
-        seed = 43      # different seed each repeat
+        seed = random.randint(1, 100)      # different seed each repeat
         random.seed(seed)
         np.random.seed(seed)
 
