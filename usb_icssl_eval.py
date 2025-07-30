@@ -61,6 +61,7 @@ Now read ALL of the unlabeled texts below.
 {unlab_block}
  • First, think step‑by‑step, compare them with the patterns you saw in the label_block and unlab_block, and decide the best category for each one. 
  • Write your reasoning, ESPECIALLY comparing with other UNLABELED samples, INSIDE a <think> ... </think> block.
+ • Attention: YOU MUST write the similarity between other UNLABELED samples in your reasoning! THIS IS VERY IMPORTANT
  • AFTER the </think> tag, output ONLY the category names,
    one per line, in the *same order* as the texts appear.
 
