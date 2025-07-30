@@ -224,7 +224,7 @@ def run_icssl_once(model_name: str,
     # ---------- diagnostics -------------------------------------
     if verbose:
         print("\n" + "="*28 + " PROMPT (truncated) " + "="*28)
-        print(prompt[:800] + (" …" if len(prompt) > 800 else ""))
+        print(prompt[:2000] + (" …" if len(prompt) > 2000 else ""))
         print("="*75)
         print("RAW GENERATION:\n", raw_out)
         print("="*75)
