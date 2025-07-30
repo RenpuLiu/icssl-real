@@ -59,7 +59,7 @@ The following examples are ALREADY labelled.
 Now read ALL of the unlabeled texts below.
 
 {unlab_block}
- • First, think step‑by‑step, compare them with the patterns you saw in both the labelled and UNLABELED blocks, and decide the best category for each one. 
+ • First, think step‑by‑step, compare them with the patterns you saw in the UNLABELED blocks, and decide the best category for each one. 
  • ATTENTION, you MUST remember to utilize other unlabeled samples to improve your prediction.
  • Write your reasoning INSIDE a <think> ... </think> block.
  • AFTER the </think> tag, output ONLY the category names,
