@@ -56,11 +56,11 @@ The following examples are ALREADY labelled.
 
 {label_block}
 
-Now read ALL of the unlabelled texts below.
+Now read ALL of the unlabeled texts below.
 
 {unlab_block}
- • First, think step‑by‑step, clustering inside the unlabelled samples, and think which ones are more likely to belong to the same category based on their direct similarity.
- • Next, compare them with the patterns you saw in both the labelled and unlabeled blocks, and decide the best category for each one. 
+ • First, think step‑by‑step, compare them with the patterns you saw in both the labelled and UNLABELED blocks, and decide the best category for each one. 
+ • ATTENTION, you MUST remember to utilize other unlabeled samples to improve your prediction.
  • Write your reasoning INSIDE a <think> ... </think> block.
  • AFTER the </think> tag, output ONLY the category names,
    one per line, in the *same order* as the texts appear.
