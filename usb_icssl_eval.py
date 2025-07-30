@@ -61,7 +61,7 @@ Now read ALL of the unlabeled texts below.
 {unlab_block}
  • First, think step‑by‑step, compare them with the patterns you saw in the label_block and unlab_block, and decide the best category for each one. 
  • Write your reasoning, ESPECIALLY comparing with other UNLABELED samples, INSIDE a <think> ... </think> block.
- • Attention: YOU MUST compare with previous unlabeled samples that you have already made predictions, and consider your prediction as pseudo-labels.
+ • Attention: You should utilize previous unlabeled data, make a similar argument: "I classified the second unlabeled sample as X, since this sample is similar to that one, I should also label this sample as X."
  • AFTER the </think> tag, output ONLY the category names,
    one per line, in the *same order* as the texts appear.
 
